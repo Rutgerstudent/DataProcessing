@@ -83,7 +83,7 @@ ctx.stroke();
 
 // Important!:
 // Canvas didn't work so it was very difficult to format the graph.
-// Example in git. No other student had the same problem..
+// Example in Toelichting.pdf (Git) No other student had the same problem..
 
 // x-as
 ctx.beginPath();
