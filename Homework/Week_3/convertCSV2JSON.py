@@ -3,50 +3,14 @@
 # Data Processing, Week 3
 # convertCSV2JSON.py
 
-import sys 
-import getopt
 import csv
 import json
 
-#Get Command Line Arguments
-def main(argv):
-    input_file = ''
-    output_file = ''
-    format = ''
-    try:
-        opts, args = getopt.getopt(argv,"hi:o:f:",["ifile=","ofile=","format="])
-    except getopt.GetoptError:
-        print 'csv_json.py -i <path to inputfile> -o <path to outputfile> -f <dump/pretty>'
-        sys.exit(2)
-    for opt, arg in opts:
-        if opt == '-h':
-            print 'csv_json.py -i <path to inputfile> -o <path to outputfile> -f <dump/pretty>'
-            sys.exit()
-        elif opt in ("-i", "--ifile"):
-            input_file = arg
-        elif opt in ("-o", "--ofile"):
-            output_file = arg
-        elif opt in ("-f", "--format"):
-            format = arg
-    read_csv(input_file, output_file, format)
+# File locations
+csv_file = open('/Users/Rutger/Desktop/DataProcessing/Homework/Week_3/huurverhoging.csv', 'r')
+json_file = open('/Users/Rutger/Desktop/DataProcessing/Homework/Week_3/huurverhoging.json', 'w')
 
-#Read CSV File
-def read_csv(file, json_file, format):
-    csv_rows = []
-    with open(file) as csvfile:
-        reader = csv.DictReader(csvfile)
-        title = reader.fieldnames
-        for row in reader:
-            csv_rows.extend([{title[i]:row[title[i]] for i in range(len(title))}])
-        write_json(csv_rows, json_file, format)
-
-#Convert csv data into json and write it
-def write_json(data, json_file, format):
-    with open(json_file, "w") as f:
-        if format == "pretty":
-            f.write(json.dumps(data, sort_keys=False, indent=4, separators=(',', ': '),encoding="utf-8",ensure_ascii=False))
-        else:
-            f.write(json.dumps(data))
-
-if __name__ == "__main__":
-   main(sys.argv[1:])
+# Write JSON file
+for row in csv.DictReader(csv_file):
+    json.dump(row, json_file)
+    json_file.write('\n')
