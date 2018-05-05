@@ -5,8 +5,8 @@
 
 // Interactive Scatterplot
 
-var first_api = "http://stats.oecd.org/SDMX-JSON/data/ANHRS/AUS+FRA+DEU+NLD+ESP.TE.A/all?startTime=2013&endTime=2016&dimensionAtObservation=allDimensions"
-var second_api = "http://stats.oecd.org/SDMX-JSON/data/PDB_LV/AUS+FRA+DEU+NLD+ESP.T_GDPPOP.CPC/all?startTime=2013&endTime=2016&dimensionAtObservation=allDimensions"
+var first_api = "https://stats.oecd.org/SDMX-JSON/data/ANHRS/AUS+FRA+DEU+NLD+ESP.TE.A/all?startTime=2013&endTime=2016&dimensionAtObservation=allDimensions"
+var second_api = "https://stats.oecd.org/SDMX-JSON/data/PDB_LV/AUS+FRA+DEU+NLD+ESP.T_GDPPOP.CPC/all?startTime=2013&endTime=2016&dimensionAtObservation=allDimensions"
 var hours = []
 var gdp = []
 
@@ -19,6 +19,7 @@ window.onload = function(){
 
 function doFunction(error, response) {
   if (error) throw error;
+  
   var first_raw = JSON.parse(response[0].responseText)
   var second_raw = JSON.parse(response[1].responseText)
 
