@@ -5,18 +5,45 @@
 
 // Interactive Scatterplot
 
-var data_api = "http://stats.oecd.org/SDMX-JSON/data/ANHRS/AUT+FRA+DEU+NLD+ESP.TE.A/all?startTime=2012&endTime=2016&dimensionAtObservation=allDimensions"
+var first_api = "http://stats.oecd.org/SDMX-JSON/data/ANHRS/AUS+FRA+DEU+NLD+ESP.TE.A/all?startTime=2013&endTime=2016&dimensionAtObservation=allDimensions"
+var second_api = "http://stats.oecd.org/SDMX-JSON/data/PDB_LV/AUS+FRA+DEU+NLD+ESP.T_GDPPOP.CPC/all?startTime=2013&endTime=2016&dimensionAtObservation=allDimensions"
+var hours = []
+var gdp = []
 
 window.onload = function(){
   d3.queue()
-    .defer(d3.request, data_api)
+    .defer(d3.request, first_api)
+    .defer(d3.request, second_api)
     .awaitAll(doFunction);
   }
 
 function doFunction(error, response) {
   if (error) throw error;
-  let data_1 = JSON.parse(response[0].response)
-  console.log(data_1);
+  var first_raw = JSON.parse(response[0].responseText)
+  var second_raw = JSON.parse(response[1].responseText)
+
+  console.log(first_raw)
+  console.log(second_raw);
+
+  for (var i = 0; i < 5; i++){
+
+    var hours_worked = []
+    var gdp_head = []
+
+    for (var j = 0; j < 4; j++){
+    hours_worked.push(first_raw.dataSets[0].observations[i + ":" + j + ":0:0"][0]);
+    gdp_head.push(second_raw.dataSets[0].observations[i + ":0:0:" + j][0]);
+
+    // console.log(hours_worked)
+    // console.log(gdp_head);
+  }
+  hours.push(hours_worked)
+  gdp.push(gdp_head)
+};
+
+  console.log(hours[0][1])
+  console.log(hours)
+  console.log(gdp);
 
   // Use response
 };
