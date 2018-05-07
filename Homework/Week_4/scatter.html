@@ -10,9 +10,13 @@ scatter.js -->
         <title>Interactive Scatterplot</title>
         <link rel="stylesheet" type="text/css" href="scatter.css">
         <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="https://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+        <script type="text/javascript" src="scatter.js"></script>
     </head>
     <body>
-      <script src="scatter.js"></script>
+        <label for="nValue"
+               style="display: inline-block; width: 0px; top:100px; left:100px; text-align: top">
+               <span id="nValue-value"></span>
+        </label>
+        <input type="number" min="2013" max="2016" step="1" value="2013" id="nValue">
     </body>
 </html>
