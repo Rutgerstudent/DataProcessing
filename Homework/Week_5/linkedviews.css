@@ -1,0 +1,27 @@
+/* Rutger van Heijningen
+10272224
+Data Processing, week 5
+linkedviews.css  */
+
+<style>
+
+.counties {
+  fill: none;
+}
+
+.states {
+  fill: none;
+  stroke: #fff;
+  stroke-linejoin: round;
+}
+
+.arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+
+.arc path {
+  stroke: #fff;
+}
+
+</style>

@@ -207,9 +207,23 @@ d3.select("#nValue").on("input", function() {
 // Initial update value
 update(2013);
 
+var data = {
+  2013: [
+    {
+      "country": AUS,
+      value: 12
+      hoursworked: 123
+    },
+
+  ],
+  2014: [
+
+  ]
+}
 // Update function
 function update(nValue) {
 
+  data_year = data[nValue];
   // Load the right data file
   if (nValue == 2013) {
     var data_year = data_2013;
