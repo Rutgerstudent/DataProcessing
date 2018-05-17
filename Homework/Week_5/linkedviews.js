@@ -5,7 +5,7 @@
 // Linked Views
 
 // Load function when website loads
-// window.onload = function(){
+window.onload = function(){
 
 var unemployment = d3.map();
 
@@ -14,9 +14,11 @@ d3.queue()
     .defer(d3.tsv, "unemployment.tsv", function(d) { unemployment.set(d.id, +d.rate); })
     .await(map);
 
+// Function for generating the map
 function map(error, us) {
   if (error) throw error;
 
+  // Svg
   var svg = d3.select("svg"),
       width = +svg.attr("width"),
       height = +svg.attr("height");
@@ -64,6 +66,8 @@ function map(error, us) {
     .select(".domain")
       .remove();
 
+  piechart(00000);
+
   svg.append("g")
       .attr("class", "counties")
     .selectAll("path")
@@ -75,17 +79,16 @@ function map(error, us) {
       .attr("fill", function(d) { return color(d.rate = unemployment.get(d.id)); })
       .attr("d", path)
     .append("title")
-      .text(function(d) { return d.id + ", " + d.rate + "%"; });
+      .text(function(d) { return d.rate + "%"; });
 
   svg.append("path")
       .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
       .attr("class", "states")
       .attr("d", path);
-
+  }
 }
 
 function piechart(county){
-  console.log(county)
 
 var width = 275
 var height = 600
@@ -95,7 +98,10 @@ var labels = ["Adults with less than a high school diploma",
               "Adults completing some college or associate's degree",
               "Adults with a bachelor's degree or higher"]
 
+d3.select("#pie_chart").remove();
+
 var svg = d3.select("body").append("svg")
+    .attr("id","pie_chart")
     .attr("width", width)
     .attr("height", height);
 
@@ -130,10 +136,8 @@ var bachelor = +data.filter(function(d){return d.id == county})[0].bachelor
 var name = data.filter(function(d){return d.id == county})[0].name
 
 edu.push(less,school,college,bachelor)
-console.log(labels)
-console.log(edu)
 
-var color = d3.scaleOrdinal(d3.schemeCategory20c);
+var color = d3.scaleOrdinal(d3.schemeBlues[4]);
 
 var pie = d3.pie();
 
@@ -145,8 +149,6 @@ var container = svg.append("g")
 	.attr('transform',"translate(" + width / 2 + "," + (height - width / 2) + ")");
 
 var stencil = pie(edu);
-
-console.log(stencil)
 
 var g = container.selectAll("g")
 	.data(stencil)
@@ -182,7 +184,7 @@ var legendG = svg.selectAll(".legend")
     return "translate(" + (8) + "," + (i * 15 + 250) + ")";})
   .attr("class", "legend");
 
-var color = d3.scaleOrdinal(d3.schemeCategory20c);
+var color = d3.scaleOrdinal(d3.schemeBlues[4]);
 
 legendG.append("rect")
   .attr("width", 10)
