@@ -5,6 +5,10 @@ linkedviews.css  */
 
 <style>
 
+.g text{
+  font-family: Verdana;
+}
+
 .counties {
   fill: none;
 }
